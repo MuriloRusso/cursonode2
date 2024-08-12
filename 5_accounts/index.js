@@ -58,7 +58,7 @@ function operation(){
             deposit();
         }
         else if(action === 'Sacar'){
-            
+            sacar();
         }
         else if(action === 'Sair'){
             chalk.then(chalk => {
@@ -127,12 +127,24 @@ function buildAccount(){
     // fs.createFile()
 }
 
+//------------------
+
+
+
+
+//consultar saldo
 
 function saldo(account){
     const data = fs.readFileSync(`accounts/${account}.json`, 'utf8');
     const dataObject = JSON.parse(data);
     return dataObject.balance;
 }
+//------------------
+
+
+
+
+//deposit
 
 function deposit(){
     inquirer.prompt([
@@ -150,27 +162,43 @@ function deposit(){
             deposit();
         }
         else{
-            chalk.then((chalk)=> {
-                console.log(chalk.default.bgGreen.black('Sua conta foi localizada'));
-            }).then(()=>{
-                inquirer.prompt([
-                    {
-                        type: "number",
-                        name: "valor",
-                        message: "Digite o valor do deposito por favor: "
-                    }
-                ]).then((answers) => {
-                    console.log(accountNameDeposit);
-                    const valor = answers.valor;
-                    const saldoAtual = saldo(accountNameDeposit);
-                    setBalance(accountNameDeposit, saldoAtual + valor);
-                    operation();
-
-                }).catch(err => console.log(err));
-            })
+            makeDeposit(accountNameDeposit);
         }
     }).catch(err => console.log(err))
 }
+
+function makeDeposit(accountNameDeposit){
+    chalk.then((chalk)=> {
+        console.log(chalk.default.bgGreen.black('Sua conta foi localizada'));
+    }).then(()=>{
+        inquirer.prompt([
+            {
+                type: "number",
+                name: "valor",
+                message: "Digite o valor do deposito por favor:"
+            }
+        ]).then((answers) => {
+            console.log(accountNameDeposit);
+            const valor = answers.valor;
+            const saldoAtual = saldo(accountNameDeposit);
+            if(valor < 1 || isNaN(valor)){
+                chalk.then(chalk => {
+                    console.log(chalk.default.bgRed.black('Valor de deposito inválido'));
+                    makeDeposit(accountNameDeposit);
+                })
+            }
+            else{
+                setBalance(accountNameDeposit, saldoAtual + valor);
+            }
+
+        }).catch(err => console.log(err));
+    })
+}
+
+
+
+
+//set balance
 
 function setBalance(account, valor) {
     fs.writeFile(`accounts/${account}.json`, `{"balance": ${valor}}`, (err) => {
@@ -180,7 +208,67 @@ function setBalance(account, valor) {
         }
         chalk.then(chalk => {
             console.log(chalk.default.bgGreen.black(`Novo Saldo ${valor}`));
-        })
+        }).then(() => {
+            operation();
+        }).catch(err => console.log(err))
     });
 }
+
+
+
+
+
+
+
+//saque
+
+function sacar(){
+    inquirer.prompt([
+        {
+            name: "account",
+            message: "Digite seu nome para localizarmos sua conta: "
+        }
+    ]).then((answers) => {
+        const account = answers.account;
+
+        if(!fs.existsSync(`accounts/${account}.json`)){
+            chalk.then((chalk)=> {
+                console.log(chalk.default.bgRed.black('Está conta não existe'));
+            })
+            sacar();
+        }
+        else{
+            makeSaque(account);
+        }
+    }).catch(err => console.log(err))
+}
+
+function makeSaque(account){
+    chalk.then((chalk)=> {
+        console.log(chalk.default.bgGreen.black('Sua conta foi localizada'));
+    }).then(()=>{
+        inquirer.prompt([
+            {
+                type: "number",
+                name: "valor",
+                message: "Digite o valor de saque por favor:"
+            }
+        ]).then((answers) => {
+            console.log(account);
+            const valor = answers.valor;
+            const saldoAtual = saldo(account);
+            if(valor < 1 || isNaN(valor) || valor > saldoAtual){
+                chalk.then(chalk => {
+                    console.log(chalk.default.bgRed.black('Valor de saque inválido'));
+                    makeDeposit(account);
+                })
+            }
+            else{
+                setBalance(account, saldoAtual - valor);
+            }
+
+        }).catch(err => console.log(err));
+    })
+}
+
 
