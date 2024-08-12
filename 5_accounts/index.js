@@ -30,9 +30,31 @@ function operation(){
             createAccount()
         }
         else if(action === 'Consultar Saldo'){
-            
+            inquirer.prompt([
+                {
+                    name: "account",
+                    message: "Digite seu nome para localizarmos sua conta: "
+                }
+            ]).then((answers) => {
+                const accountNameDeposit = answers.account;
+        
+                if(!fs.existsSync(`accounts/${accountNameDeposit}.json`)){
+                    chalk.then((chalk)=> {
+                        console.log(chalk.default.bgRed.black('Está conta não existe'));
+                        operation();
+                    })
+                }
+                else{
+                    chalk.then((chalk)=> {
+                        console.log(chalk.default.bgGreen.black('Saldo Atual: ' + saldo(answers.account)));
+                    }).then(()=> {
+                        operation();
+                    }).catch(err => console.log(err))
+                }
+            }).catch(err => console.log(err));
         }
         else if(action === 'Depositar'){
+            
             deposit();
         }
         else if(action === 'Sacar'){
@@ -45,7 +67,6 @@ function operation(){
             .then(()=>{
                 process.exit();
             })
-            // process.exit();
         }
     }
 
@@ -107,6 +128,12 @@ function buildAccount(){
 }
 
 
+function saldo(account){
+    const data = fs.readFileSync(`accounts/${account}.json`, 'utf8');
+    const dataObject = JSON.parse(data);
+    return dataObject.balance;
+}
+
 function deposit(){
     inquirer.prompt([
         {
@@ -114,7 +141,6 @@ function deposit(){
             message: "Digite seu nome para localizarmos sua conta: "
         }
     ]).then((answers) => {
-        // console.log(answers.valor);
         const accountNameDeposit = answers.account;
 
         if(!fs.existsSync(`accounts/${accountNameDeposit}.json`)){
@@ -136,9 +162,10 @@ function deposit(){
                 ]).then((answers) => {
                     console.log(accountNameDeposit);
                     const valor = answers.valor;
-                    const data = fs.readFileSync(`accounts/${accountNameDeposit}.json`, 'utf8');
-                    dataObject = JSON.parse(data);
-                    setBalance(accountNameDeposit, dataObject.balance + valor)
+                    const saldoAtual = saldo(accountNameDeposit);
+                    setBalance(accountNameDeposit, saldoAtual + valor);
+                    operation();
+
                 }).catch(err => console.log(err));
             })
         }
@@ -152,8 +179,8 @@ function setBalance(account, valor) {
             return;
         }
         chalk.then(chalk => {
-            console.log(chalk.default.bgGreen.black(`Novo Saldo ${valor}`));        
+            console.log(chalk.default.bgGreen.black(`Novo Saldo ${valor}`));
         })
-    });    
+    });
 }
 
