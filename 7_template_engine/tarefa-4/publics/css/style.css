@@ -1,0 +1,25 @@
+.container-posts{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.post{
+    background-color: #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 300px;
+    margin: 20px 0;
+    text-align: center;
+}
+.post .price{
+    color: green;
+}
+
+.post a {
+    background-color: #222;
+    color: white;
+    display: block;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 30px;
+}

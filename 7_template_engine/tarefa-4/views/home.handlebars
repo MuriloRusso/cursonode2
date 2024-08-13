@@ -1,0 +1,9 @@
+<div class="container-posts">
+    {{#each products}}
+        <div class="post">
+            <h2>{{this.name}}</h2>
+            <p class="price">R$: {{this.preco}}</p>
+            <a href="product/{{this.id}}">Ver Produto</a>
+        </div>
+    {{/each}}
+</div>
