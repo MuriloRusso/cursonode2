@@ -1,36 +1,33 @@
 const express = require('express');
-const router = express.Router();
+
+const app = express();
+const port = 3000;
+
+const path = require('path');
 
 
-// const app = express();
-// const port = 3000;
-
-// const path = require('path');
-
+const usersRoutes = require('./users');
 
 // ler body;
-router.use(
+app.use(
     express.urlencoded({
         extended: true,
     }),
 )
 
-router.use(express.json());
+app.use(express.json());
 
 const basePath = path.join(__dirname, 'templates')
 
 
+app.use('/users', usersRoutes)
 
-router.get('/', (req, res) => {
+
+app.get('/', (req, res) => {
     // res.send('Olá Mundo');
     res.sendFile(`${basePath}/index.html`);
 })
 
-
-
-// router.listen(port, () => {
-//     console.log('App rodando na porta:', port);    
-// })
-
-
-module.exports = router
+app.listen(port, () => {
+    console.log('App rodando na porta:', port);
+})
