@@ -1,0 +1,27 @@
+<h1>Todas as tarefas</h1>
+
+<ul class="table">
+    {{#each tasks}}
+        <li>
+            <div>
+                <h3>
+                    {{this.dataValues.title}}
+                </h3>
+                <p>
+                    {{this.dataValues.description}}
+                </p>
+            </div>
+            <div class="actions">
+                <a href="#">
+                    <i class="bi bi-check"></i>
+                </a>
+                <a href="#">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+                <a href="/tasks/delete/{{this.dataValues.id}}">
+                    <i class="bi bi-x"></i>
+                </a>
+            </div>
+        </li>
+    {{/each}}
+</ul>

@@ -1,0 +1,14 @@
+<h1>Todas as tarefas</h1>
+
+<ul class="table">
+    {{#each tasks}}
+        <li>
+            <h3>
+                {{this.dataValues.title}}
+            </h3>
+            <p>
+                {{this.dataValues.description}}
+            </p>
+        </li>
+    {{/each}}
+</ul>
