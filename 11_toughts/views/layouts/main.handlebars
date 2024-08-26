@@ -4,8 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toughts</title>
+    <link rel="shortcut icon" href="/img/bulb.png" type="image/x-icon">
+    <link rel="stylesheet" href="/css/style.css">
+
+    {{!-- BOOTSTRAP Icons --}}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap-icons/1.8.1/font/bootstrap-icons.css">
+
 </head>
 <body>
-    {{{body}}}
+    <nav id="navbar">
+        <a href="/" id="logo">
+            <img src="/img/bulb.png" alt="Toughts">
+        </a>
+        <ul>
+            <li><a href="/">Pensamentos</a></li>
+
+            {{!-- URLs após autentificação --}}
+            <li><a href="/login">Entrar</a></li>
+            <li><a href="/register">Registrar</a></li>
+
+        </ul>
+    </nav>
+    <div class="container">
+        {{!-- Mensaagens --}}
+        {{{body}}}
+    </div>
+
+    <footer>
+        <p><span>Toughts</span> &copy; 2024</p>
+    </footer>
+
 </body>
 </html>
