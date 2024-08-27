@@ -8,6 +8,16 @@ h1{
     color: #f6982d;
 }
 
+
+.message{
+    padding: 10px 0;
+    background-color: #f6982d;
+    color: white;
+    text-align: center;
+    margin: 0 auto 2em;
+    max-width: 60%;
+}
+
 #navbar, footer{
     background-color: #efefef;
 }
