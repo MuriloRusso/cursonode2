@@ -21,9 +21,15 @@
             <li><a href="/">Pensamentos</a></li>
 
             {{!-- URLs após autentificação --}}
-            <li><a href="/login">Entrar</a></li>
-            <li><a href="/register">Registrar</a></li>
-
+            {{#if session.userid}}
+                <p>
+                    <li><a href="/toughts">Dashboard</a></li>
+                    <li><a href="/logout">Sair</a></li>
+                </p>
+            {{else}}
+                <li><a href="/login">Entrar</a></li>
+                <li><a href="/register">Registrar</a></li>                           
+            {{/if}}
         </ul>
     </nav>
     <div class="container">
