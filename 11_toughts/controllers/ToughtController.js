@@ -39,7 +39,6 @@ module.exports = class ToughtController {
     static async newToughtPost(req, res) {
         const {title} = req.body;
 
-        //password match validation
         if(!title){
             //mensagem
             req.flash('Pensamento em branco.');
@@ -60,5 +59,37 @@ module.exports = class ToughtController {
             console.log(error);
         }
 
+    }
+
+
+
+
+    static async updateTought(req, res){        
+        const tought = await Tought.findOne({where: {id: req.params.id}});
+        console.log(tought);
+        res.render('toughts/update-tought', {tought: tought})
+    }
+
+
+    static async updateToughtPost(req, res) {
+        const {id, title} = req.body;
+
+        if(!title){
+            //mensagem
+            req.flash('Pensamento em branco.');
+            res.redirect('toughts/update-tought');
+            return;
+        }
+        const tought = {
+            title
+        }
+        try {
+            const updateTought = await Tought.update(tought, {where: {id: id}});
+            // initialize session
+            req.flash('message', 'Pensamento atualizado com sucesso!');
+            res.redirect('/toughts/dashboard');
+        } catch (error) {
+            console.log(error);
+        }
     }
 }

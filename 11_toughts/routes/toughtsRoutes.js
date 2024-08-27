@@ -6,5 +6,8 @@ router.get('/', ToughtController.showToughts);
 router.get('/dashboard', ToughtController.dashboard);
 router.get('/new-tought', ToughtController.newTought);
 router.post('/new-tought', ToughtController.newToughtPost);
+router.get('/update-tought/:id', ToughtController.updateTought);
+router.post('/update-tought', ToughtController.updateToughtPost);
+
 
 module.exports = router;

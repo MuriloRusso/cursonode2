@@ -1,0 +1,11 @@
+<div class="auth-container">
+    <h1>Editar Pensamento</h1>
+    <form action="/toughts/update-tought" method="post">
+        <input type="hidden" name="id" id="id" value="{{tought.dataValues.id}}">
+        <div class="form-control">
+            <label for="title">Pensamento:</label>
+            <input type="text" name="title" id="title" placeholder="Escreva aqui o pensamento" required value="{{tought.dataValues.title}}">
+        </div>
+        <input type="submit" value="Atualizar Pensamento">
+    </form>
+</div>
