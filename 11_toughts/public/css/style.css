@@ -60,6 +60,7 @@ h1{
 .container{
     min-height: 60vh;
     padding: 2em;
+    display: block;
 }
 
 
@@ -111,6 +112,48 @@ form input[type="submit"], .btn{
 form input[type="submit"]:hover, .btn:hover{
     background-color: white;
     color: #f6982d;
+}
+
+
+
+/* toughts */
+
+#toughts{
+    list-style: none;
+    border: 2px solid #f6982d;
+    border-bottom: 0;
+}
+#toughts li{
+    border-bottom: 2px solid #f6982d;
+    padding: 10px;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+#toughts li h3{
+    color: #999;
+    margin: 0;
+}
+
+#toughts li .actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#toughts li .actions i{
+    color: #f6982d;
+    font-size: 20px !important;
+    margin: 0 10px;
+}
+
+
+/*btns*/
+.btn-primary{
+    background-color: #f6982d !important;
+    border-color: #f6982d !important;
 }
 
 

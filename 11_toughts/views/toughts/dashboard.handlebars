@@ -1,0 +1,19 @@
+<h1>Meus Pensamentos</h1>
+
+<a href="#" class="btn btn-primary">Novo Pensamento</a>
+
+<ul id="toughts">
+    {{#each toughts}}
+        <li>
+            <h3>{{this.dataValues.title}}</h3>
+            <div class="actions">
+                <a href="#">
+                    <i class="bi bi-pencil"></i>
+                </a>
+                <a href="#">
+                    <i class="bi bi-trash3"></i>
+                </a>
+            </div>
+        </li>
+    {{/each}}
+</ul>

@@ -1,1 +1,14 @@
 <h1>Todos os Pensamentos</h1>
+
+<ul id="toughts">
+    {{#each toughts}}
+
+        <li>
+            <h3>{{this.dataValues.title}}</h3>
+            {{!-- <p>{{users.findOne({id: this.dataValues.id})}}</p> --}}
+            <p>{{users.User}}</p>
+
+        </li>
+    {{/each}}
+</ul>
+
