@@ -31,4 +31,34 @@ module.exports = class ToughtController {
         const toughts = await Tought.findAll({where: {UserId: req.session.userid}});
         res.render('toughts/dashboard', {toughts: toughts});
     }
+    static async newTought(req, res){
+        res.render('toughts/new-tought')
+    }
+
+
+    static async newToughtPost(req, res) {
+        const {title} = req.body;
+
+        //password match validation
+        if(!title){
+            //mensagem
+            req.flash('Pensamento em branco.');
+            res.redirect('toughts/new-tought');
+            return;
+        }
+        const tought = {
+            title,
+            UserId: req.session.userid
+        }
+        try {
+            const createdTought = await Tought.create(tought);
+            // initialize session
+            req.flash('message', 'Pensamento criado com sucesso!');
+            res.redirect('/toughts/dashboard');
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
 }
