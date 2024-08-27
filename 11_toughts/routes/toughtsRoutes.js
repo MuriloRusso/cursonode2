@@ -8,6 +8,7 @@ router.get('/new-tought', ToughtController.newTought);
 router.post('/new-tought', ToughtController.newToughtPost);
 router.get('/update-tought/:id', ToughtController.updateTought);
 router.post('/update-tought', ToughtController.updateToughtPost);
-
+router.get('/delete-tought/:id', ToughtController.deleteTought);
+router.post('/delete-tought', ToughtController.deleteToughtPost);
 
 module.exports = router;

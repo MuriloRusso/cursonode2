@@ -1,0 +1,11 @@
+<div class="auth-container">
+    <h1>Excluír Pensamento</h1>
+    <form action="/toughts/delete-tought" method="post">
+        <input type="hidden" name="id" id="id" value="{{tought.dataValues.id}}">
+        <div class="form-control">
+            <p>Deseja mesmo excluír o pensamento abaixo:</p>
+            <p>{{tought.dataValues.title}}</p>
+        </div>
+        <input type="submit" value="Excluír Pensamento">
+    </form>
+</div>

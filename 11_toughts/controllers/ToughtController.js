@@ -66,7 +66,6 @@ module.exports = class ToughtController {
 
     static async updateTought(req, res){        
         const tought = await Tought.findOne({where: {id: req.params.id}});
-        console.log(tought);
         res.render('toughts/update-tought', {tought: tought})
     }
 
@@ -91,5 +90,17 @@ module.exports = class ToughtController {
         } catch (error) {
             console.log(error);
         }
+    }
+
+
+
+    static async deleteTought(req, res){        
+        const tought = await Tought.findOne({where: {id: req.params.id}});
+        res.render('toughts/delete-tought', {tought: tought})
+    }
+    static async deleteToughtPost(req, res){
+        const {id, title} = req.body;
+        await Tought.destroy({where: {id: id}});
+        res.redirect('/toughts/dashboard');
     }
 }
