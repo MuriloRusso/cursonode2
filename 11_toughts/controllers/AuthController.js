@@ -2,9 +2,23 @@ const User = require('../models/User');
 
 const bcrypt = require('bcryptjs');
 
+// const raw = require('raw')
+
 module.exports = class AuthController {
     static login(req, res){
         res.render('auth/login')
+    }
+    static logout(req, res){
+        
+        req.flash('message', 'Você se deslogou com sucesso!')
+        req.session.destroy((err) => {
+            if (err) {
+                console.log(err);
+                res.send('Erro ao destruir a sessão');
+            } else {
+                res.redirect('/login')
+            }
+        });
     }
     static register(req, res){
         res.render('auth/register')
@@ -44,7 +58,7 @@ module.exports = class AuthController {
 
             req.session.userid = createdUser.id;
 
-            req.flash('message', 'Cadastro realizado com sucesso1');
+            req.flash('message', 'Cadastro realizado com sucesso!');
 
             req.session.save(()=>{
                 res.redirect('/');
@@ -54,5 +68,36 @@ module.exports = class AuthController {
             console.log(error);
         }
 
+    }
+
+    static async loginPost(req, res) {
+        const {email, password} = req.body;
+
+        //password match validation
+        if(!email){
+            //mensagem
+            req.flash('message', 'E-mail em branco.');
+            res.render('auth/register');
+            return;
+        }
+        
+        // check if user exists
+        const user = await User.findOne({where: {email: email}});
+
+        // check password
+        const passwordMatch = bcrypt.compareSync(password, user.dataValues.password);
+
+        if(passwordMatch){
+            req.session.userid = user.dataValues.id;
+            req.flash('message', 'Login realizado com sucesso!');
+            req.session.save(() => {
+                res.redirect('/');
+            });
+            return;
+        }
+        req.flash('message', 'Credenciais inválidas!');
+        res.redirect('/login');
+        return;
+        // res.redirect('/');
     }
 }
