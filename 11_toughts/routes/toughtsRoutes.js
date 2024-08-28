@@ -2,13 +2,15 @@ const express = require('express')
 const router = express.Router();
 const ToughtController = require('../controllers/ToughtController')
 
+const checkAuth = require('../helpers/auth').checkAuth; // função para verificação de autentificação
+
 router.get('/', ToughtController.showToughts);
-router.get('/dashboard', ToughtController.dashboard);
-router.get('/new-tought', ToughtController.newTought);
-router.post('/new-tought', ToughtController.newToughtPost);
-router.get('/update-tought/:id', ToughtController.updateTought);
-router.post('/update-tought', ToughtController.updateToughtPost);
-router.get('/delete-tought/:id', ToughtController.deleteTought);
-router.post('/delete-tought', ToughtController.deleteToughtPost);
+router.get('/dashboard', checkAuth, ToughtController.dashboard);
+router.get('/new-tought', checkAuth, ToughtController.newTought);
+router.post('/new-tought', checkAuth, ToughtController.newToughtPost);
+router.get('/update-tought/:id', checkAuth, ToughtController.updateTought);
+router.post('/update-tought', checkAuth, ToughtController.updateToughtPost);
+router.get('/delete-tought/:id', checkAuth, ToughtController.deleteTought);
+router.post('/delete-tought', checkAuth, ToughtController.deleteToughtPost);
 
 module.exports = router;
