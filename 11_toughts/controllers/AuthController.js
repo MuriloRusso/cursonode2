@@ -84,6 +84,15 @@ module.exports = class AuthController {
         // check if user exists
         const user = await User.findOne({where: {email: email}});
 
+        console.log(user);
+
+        if(!user){
+            req.flash('message', 'E-mail inexistente!');
+            res.redirect('/login');
+            return;
+        }
+        
+
         // check password
         const passwordMatch = bcrypt.compareSync(password, user.dataValues.password);
 
