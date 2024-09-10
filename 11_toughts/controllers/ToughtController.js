@@ -97,7 +97,8 @@ module.exports = class ToughtController {
         }
         else{
             const toughts = await Tought.findAll({where: {title: {[Op.like]: `%${search}%`}, UserId: req.session.userid}});
-            res.render('toughts/dashboard', {toughts: toughts, search});
+            const toughtsQty = toughts.length;
+            res.render('toughts/dashboard', {toughts: toughts, search, toughtsQty});
         }
     }
 
@@ -112,7 +113,8 @@ module.exports = class ToughtController {
         }
         else{
             const toughts = await Tought.findAll({where: {title: {[Op.like]: `%${search}%`}}});
-            res.render('toughts/home', {toughts: toughts, search});
+            const toughtsQty = toughts.length;
+            res.render('toughts/home', {toughts: toughts, search, toughtsQty});
         }
     }
 
