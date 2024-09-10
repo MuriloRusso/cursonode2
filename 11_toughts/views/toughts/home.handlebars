@@ -1,8 +1,13 @@
-<h1>Todos os Pensamentos</h1>
+
+{{#if search}}
+    <h1>Você está buscando por: <span>{{search}}</span></h1>
+{{else}}
+    <h1>Todos os Pensamentos</h1>
+{{/if}}
 
 <form action="/toughts/search-tought-all" method="post" class="d-flex align-items-center">
     <div class="form-control">
-        <input type="text" id="search" name="search" placeholder="Buscar...">
+        <input type="text" id="search" name="search" placeholder="Buscar..." value="{{search}}">
     </div>
     <input type="submit" value="Buscar">
 </form>

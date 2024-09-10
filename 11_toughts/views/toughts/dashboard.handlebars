@@ -1,11 +1,14 @@
-<h1>Meus Pensamentos</h1>
+{{#if search}}
+    <h1>Você está buscando por: <span>{{search}}</span></h1>
+{{else}}
+    <h1>Meus Pensamentos</h1>
+{{/if}}
 
 <a href="/toughts/new-tought" class="btn btn-primary">Novo Pensamento</a>
 
 <form action="/toughts/search-tought" method="post" class="d-flex align-items-center">
-{{!-- <form action="/toughts/search-tought/" method="post" class="d-flex align-items-center"> --}}
     <div class="form-control">
-        <input type="text" id="search" name="search" placeholder="Buscar...">
+        <input type="text" id="search" name="search" placeholder="Buscar..." value="{{search}}">
     </div>
     <input type="submit" value="Buscar">
 </form>
