@@ -9,6 +9,7 @@ module.exports = class ToughtController {
         // const toughts = await Tought.findAll();
         const toughts = await Tought.findAll({
             include: User,
+            order: [['createdAt', "DESC"]]
         });
         res.render('toughts/home', {toughts: toughts/*, users: users*/});
     }
@@ -20,7 +21,12 @@ module.exports = class ToughtController {
             res.redirect('/');
             return;
         }
-        const toughts = await Tought.findAll({where: {UserId: req.session.userid}});
+        const toughts = await Tought.findAll({
+            where: {
+                UserId: req.session.userid
+            },
+            order: [['createdAt', "DESC"]]
+        });
         res.render('toughts/dashboard', {toughts: toughts});
     }
     static async newTought(req, res){
@@ -91,12 +97,23 @@ module.exports = class ToughtController {
         console.log(search);
         
         if(!search){
-            const toughts = await Tought.findAll({where: {UserId: req.session.userid}});
+            const toughts = await Tought.findAll({
+                where: {
+                    UserId: req.session.userid
+                },
+                order: [['createdAt', "DESC"]]
+            });
             res.render('toughts/dashboard', {toughts: toughts});
             return;
         }
         else{
-            const toughts = await Tought.findAll({where: {title: {[Op.like]: `%${search}%`}, UserId: req.session.userid}});
+            const toughts = await Tought.findAll({
+                    where: {
+                            title: {[Op.like]: `%${search}%`}, 
+                            UserId: req.session.userid
+                        },
+                    order: [['createdAt', "DESC"]]
+                });
             const toughtsQty = toughts.length;
             res.render('toughts/dashboard', {toughts: toughts, search, toughtsQty});
         }
@@ -107,12 +124,15 @@ module.exports = class ToughtController {
         console.log(search);
         
         if(!search){
-            const toughts = await Tought.findAll();
+            const toughts = await Tought.findAll({order: [['createdAt', "DESC"]]});
             res.render('toughts/home', {toughts: toughts});
             return;
         }
         else{
-            const toughts = await Tought.findAll({where: {title: {[Op.like]: `%${search}%`}}});
+            const toughts = await Tought.findAll({
+                where: {title: {[Op.like]: `%${search}%`}},
+                order: [['createdAt', "DESC"]]            
+            });
             const toughtsQty = toughts.length;
             res.render('toughts/home', {toughts: toughts, search, toughtsQty});
         }
