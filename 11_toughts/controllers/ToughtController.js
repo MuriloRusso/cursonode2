@@ -1,25 +1,17 @@
 const Tought = require('../models/Tought');
 const User = require('../models/User');
+// const Op = require('sequelize');
+const { Op } = require('sequelize');
 
 
 module.exports = class ToughtController {
     static async showToughts(req, res){
-        const toughts = await Tought.findAll();
-        // const users = await User.findAll();
-        // console.log(users);
-
-        /*const toughts = await Tought.findAll({
-            include: [{
-              model: User,
-              attributes: ['name'],
-              required: true // Faz um inner join
-            }]
-          });*/
-        
-        //   console.log(toughts);
+        // const toughts = await Tought.findAll();
+        const toughts = await Tought.findAll({
+            include: User,
+        });
         res.render('toughts/home', {toughts: toughts/*, users: users*/});
     }
-
     static async dashboard(req, res){
         console.log(req.session);
         
@@ -34,8 +26,6 @@ module.exports = class ToughtController {
     static async newTought(req, res){
         res.render('toughts/new-tought')
     }
-
-
     static async newToughtPost(req, res) {
         const {title} = req.body;
 
@@ -60,16 +50,10 @@ module.exports = class ToughtController {
         }
 
     }
-
-
-
-
     static async updateTought(req, res){        
         const tought = await Tought.findOne({where: {id: req.params.id}});
         res.render('toughts/update-tought', {tought: tought})
     }
-
-
     static async updateToughtPost(req, res) {
         const {id, title} = req.body;
 
@@ -91,9 +75,6 @@ module.exports = class ToughtController {
             console.log(error);
         }
     }
-
-
-
     static async deleteTought(req, res){        
         const tought = await Tought.findOne({where: {id: req.params.id}});
         res.render('toughts/delete-tought', {tought: tought})
@@ -103,4 +84,37 @@ module.exports = class ToughtController {
         await Tought.destroy({where: {id: id}});
         res.redirect('/toughts/dashboard');
     }
+
+
+    static async searchToughtPost(req, res) {
+        const {search} = req.body;
+        console.log(search);
+        
+        if(!search){
+            const toughts = await Tought.findAll({where: {UserId: req.session.userid}});
+            res.render('toughts/dashboard', {toughts: toughts});
+            return;
+        }
+        else{
+            const toughts = await Tought.findAll({where: {title: {[Op.like]: `%${search}%`}, UserId: req.session.userid}});
+            res.render('toughts/dashboard', {toughts: toughts});
+        }
+    }
+
+    static async searchToughtAllPost(req, res) {
+        const {search} = req.body;
+        console.log(search);
+        
+        if(!search){
+            const toughts = await Tought.findAll();
+            res.render('toughts/home', {toughts: toughts});
+            return;
+        }
+        else{
+            const toughts = await Tought.findAll({where: {title: {[Op.like]: `%${search}%`}}});
+            res.render('toughts/home', {toughts: toughts});
+        }
+    }
+
+
 }

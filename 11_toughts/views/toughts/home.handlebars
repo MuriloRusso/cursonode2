@@ -1,13 +1,19 @@
 <h1>Todos os Pensamentos</h1>
 
+<form action="/toughts/search-tought-all" method="post" class="d-flex align-items-center">
+    <div class="form-control">
+        <input type="text" id="search" name="search" placeholder="Buscar...">
+    </div>
+    <input type="submit" value="Buscar">
+</form>
+
+
+
 <ul id="toughts">
     {{#each toughts}}
-
         <li>
             <h3>{{this.dataValues.title}}</h3>
-            {{!-- <p>{{users.findOne({id: this.dataValues.id})}}</p> --}}
-            <p>{{users.User}}</p>
-
+            <p>{{this.User.dataValues.name}}</p>
         </li>
     {{/each}}
 </ul>

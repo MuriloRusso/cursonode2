@@ -1,0 +1,41 @@
+Tought {
+    dataValues: {
+      id: 1,
+      title: 'teste',
+      createdAt: Invalid Date,
+      updatedAt: Invalid Date,
+      UserId: 22,
+      User: [User]
+    },
+    _previousDataValues: {
+      id: 1,
+      title: 'teste',
+      createdAt: Invalid Date,
+      updatedAt: Invalid Date,
+      UserId: 22,
+      User: [User]
+    },
+    uniqno: 1,
+    _changed: Set(0) {},
+    _options: {
+      isNewRecord: false,
+      _schema: null,
+      _schemaDelimiter: '',
+      include: [Array],
+      includeNames: [Array],
+      includeMap: [Object],
+      includeValidated: true,
+      attributes: [Array],
+      raw: true
+    },
+    isNewRecord: false,
+    User: User {
+      dataValues: [Object],
+      _previousDataValues: [Object],
+      uniqno: 1,
+      _changed: Set(0) {},
+      _options: [Object],
+      isNewRecord: false
+    }
+  },
+ 

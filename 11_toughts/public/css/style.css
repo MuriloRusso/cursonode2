@@ -155,7 +155,11 @@ form input[type="submit"]:hover, .btn:hover{
     background-color: #f6982d !important;
     border-color: #f6982d !important;
 }
-
+.btn-secondary{
+    color: #f6982d !important;
+    border-color: #f6982d !important;
+    background-color: white !important;
+}
 
 
 /*Footer*/

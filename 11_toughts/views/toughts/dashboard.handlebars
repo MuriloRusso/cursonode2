@@ -2,6 +2,14 @@
 
 <a href="/toughts/new-tought" class="btn btn-primary">Novo Pensamento</a>
 
+<form action="/toughts/search-tought" method="post" class="d-flex align-items-center">
+{{!-- <form action="/toughts/search-tought/" method="post" class="d-flex align-items-center"> --}}
+    <div class="form-control">
+        <input type="text" id="search" name="search" placeholder="Buscar...">
+    </div>
+    <input type="submit" value="Buscar">
+</form>
+
 <ul id="toughts">
     {{#each toughts}}
         <li>

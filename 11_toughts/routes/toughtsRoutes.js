@@ -12,5 +12,9 @@ router.get('/update-tought/:id', checkAuth, ToughtController.updateTought);
 router.post('/update-tought', checkAuth, ToughtController.updateToughtPost);
 router.get('/delete-tought/:id', checkAuth, ToughtController.deleteTought);
 router.post('/delete-tought', checkAuth, ToughtController.deleteToughtPost);
+router.post('/search-tought', checkAuth, ToughtController.searchToughtPost);
+router.post('/search-tought-all', ToughtController.searchToughtAllPost);
+
+// router.get('/search-tought/:search', checkAuth, ToughtController.searchToughtPost);
 
 module.exports = router;
